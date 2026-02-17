@@ -1,11 +1,11 @@
-FROM nginx:alpine
+FROM python:3.10-slim
 
-# Remove default nginx index
-RUN rm -rf /usr/share/nginx/html/*
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
 
-# Copy our HTML file
-COPY index.html /usr/share/nginx/html/
-
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 5000
+CMD ["python", "app.py"]
+]
 
